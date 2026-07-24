@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cortex — Votre ligne répond après la fermeture</title>
+<meta name="description" content="Cortex répond aux appels de votre entreprise de location après la fermeture, en français d'ici, et livre le dossier complet avant l'ouverture.">
+<style>
+  :root{
+    --bg:#F6F5F2; --card:#FFFFFF; --ink:#1B1D20; --muted:#6B6F76;
+    --amber:#C9781F; --amber-dark:#A96114; --steel:#14161A; --steel-ink:#F2F0EC;
+    --line:#E4E1DB; --green:#2E7D4F; --radius:12px;
+    --shadow:0 1px 2px rgba(20,22,26,.05),0 8px 24px rgba(20,22,26,.06);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+  h1,h2,h3{font-weight:800;letter-spacing:-0.02em;line-height:1.15}
+  h2.sec{font-size:clamp(1.7rem,3.4vw,2.5rem);text-align:center;max-width:26ch;margin:0 auto}
+  .sec-sub{color:var(--muted);text-align:center;max-width:52ch;margin:16px auto 0;font-size:1.05rem}
+  section{padding:96px 0}
+  .btn{display:inline-block;border:none;cursor:pointer;font:inherit;font-weight:700;font-size:1rem;padding:15px 32px;border-radius:10px;text-decoration:none;text-align:center}
+  .btn-primary{background:var(--amber);color:#fff}
+  .btn-primary:hover{background:var(--amber-dark)}
+  .btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+  .btn-ghost:hover{background:var(--ink);color:#fff}
+
+  /* nav */
+  nav{position:sticky;top:0;z-index:20;background:rgba(246,245,242,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+  .logo{font-weight:800;font-size:1.15rem;letter-spacing:.12em;text-transform:uppercase}
+  .logo span{color:var(--amber)}
+  .nav-links{display:flex;gap:28px;font-size:.95rem}
+  .nav-links a{color:var(--muted);text-decoration:none}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-right{display:flex;align-items:center;gap:14px}
+  .nav-cta{padding:10px 20px;font-size:.9rem}
+  .lang-toggle{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .lang-toggle button{background:none;border:none;color:var(--muted);padding:6px 12px;font:inherit;font-size:.8rem;cursor:pointer}
+  .lang-toggle button.active{color:#fff;background:var(--ink)}
+  @media(max-width:820px){.nav-links{display:none}}
+
+  /* hero */
+  .hero{padding:88px 0 96px}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:64px;align-items:center}
+  .hero h1{font-size:clamp(2.3rem,5vw,3.6rem)}
+  .hero .sub{color:var(--muted);font-size:1.15rem;max-width:50ch;margin:22px 0 34px}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .hero-phone{font-weight:700;color:var(--ink)}
+  .stats{display:flex;gap:0;margin-top:46px;border-top:1px solid var(--line);padding-top:26px}
+  .stat{flex:1}
+  .stat b{display:block;font-size:1.25rem;letter-spacing:-.01em}
+  .stat span{color:var(--muted);font-size:.85rem}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr}.stats{flex-direction:column;gap:18px}}
+
+  /* call mockup */
+  .mock{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+  .mock-head{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--line)}
+  .dot{width:10px;height:10px;border-radius:50%;background:var(--green);animation:pulse 1.6s infinite}
+  @keyframes pulse{50%{opacity:.35}}
+  .mock-head b{font-size:.95rem}
+  .mock-head span{color:var(--muted);font-size:.8rem;margin-left:auto}
+  .convo{padding:20px;display:flex;flex-direction:column;gap:12px}
+  .bubble{max-width:85%;padding:10px 14px;border-radius:12px;font-size:.88rem;line-height:1.45}
+  .bubble.caller{background:var(--bg);border:1px solid var(--line);align-self:flex-start}
+  .bubble.ai{background:var(--steel);color:var(--steel-ink);align-self:flex-end}
+  .bubble .who{display:block;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;opacity:.6;margin-bottom:3px}
+
+  /* onboarding strip */
+  .strip{background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .strip-in{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;padding:72px 0}
+  .strip h2{font-size:clamp(1.5rem,3vw,2.1rem)}
+  .strip p{color:var(--muted);margin:16px 0 26px}
+  .keepnum{background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);padding:28px}
+  .keepnum b{display:block;font-size:1.05rem;margin-bottom:8px}
+  .keepnum p{color:var(--muted);font-size:.92rem;margin:0}
+  .keepnum .tag{display:inline-block;background:#E8F3EC;color:var(--green);font-size:.75rem;font-weight:700;padding:4px 10px;border-radius:99px;margin-bottom:14px}
+  @media(max-width:900px){.strip-in{grid-template-columns:1fr}}
+
+  /* features 3-col */
+  .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px}
+  .feat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px;display:flex;flex-direction:column;gap:18px}
+  .feat h3{font-size:1.1rem}
+  .feat>p{color:var(--muted);font-size:.92rem}
+  .mini{border:1px solid var(--line);border-radius:10px;background:var(--bg);padding:16px;font-size:.8rem;margin-top:auto}
+  .mini .mrow{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--line)}
+  .mini .mrow:last-child{border-bottom:none}
+  .mini .k{color:var(--muted)}
+  .mini .ok{color:var(--green);font-weight:700}
+  .sms{background:var(--steel);color:var(--steel-ink);border-radius:14px 14px 14px 4px;padding:12px 14px;font-size:.8rem;line-height:1.5}
+  .sms small{opacity:.55;display:block;margin-top:8px}
+  @media(max-width:900px){.feat-grid{grid-template-columns:1fr}}
+
+  /* listen / demo */
+  .listen{background:var(--steel);color:var(--steel-ink)}
+  .listen h2{color:var(--steel-ink)}
+  .listen .sec-sub{color:#A7A49C}
+  .listen-cta{display:flex;gap:16px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:40px}
+  .listen .phone-big{font-size:1.3rem;font-weight:800;letter-spacing:.02em}
+  .listen .note{text-align:center;color:#A7A49C;font-size:.85rem;margin-top:18px}
+
+  /* never (guardrails) */
+  .never-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;max-width:820px;margin:48px auto 0}
+  .never-card{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:10px;padding:20px 22px;font-weight:600}
+  .never-close{text-align:center;color:var(--muted);margin-top:36px}
+  @media(max-width:700px){.never-grid{grid-template-columns:1fr}}
+
+  /* industries */
+  .ind-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px}
+  .ind{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow)}
+  .ind .ico{font-size:1.6rem}
+  .ind h3{font-size:1.05rem;margin:12px 0 8px}
+  .ind p{color:var(--muted);font-size:.9rem}
+  @media(max-width:900px){.ind-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:600px){.ind-grid{grid-template-columns:1fr}}
+
+  /* cta */
+  .cta{background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line);text-align:center}
+  .cta .bullets{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;margin-top:34px;color:var(--muted);font-size:.9rem}
+  .cta .bullets span::before{content:"✓ ";color:var(--green);font-weight:700}
+  .cta .btn{margin-top:38px}
+
+  /* faq */
+  .faq{max-width:760px;margin:48px auto 0}
+  details{background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:12px;padding:0 22px}
+  summary{cursor:pointer;font-weight:700;padding:18px 0;list-style:none;display:flex;justify-content:space-between;align-items:center}
+  summary::after{content:"+";font-weight:400;font-size:1.3rem;color:var(--muted)}
+  details[open] summary::after{content:"–"}
+  details p{color:var(--muted);padding-bottom:18px;font-size:.95rem}
+
+  footer{padding:48px 0;color:var(--muted);font-size:.85rem}
+  .foot-in{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+  .foot-in a{color:var(--muted)}
+
+  .fade{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+  .fade.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.fade{opacity:1;transform:none;transition:none}}
+  @media(max-width:700px){section{padding:72px 0}}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap nav-in">
+  <div class="logo">Cor<span>tex</span></div>
+  <div class="nav-links">
+    <a href="#how" data-i="nav_how"></a>
+    <a href="#industries" data-i="nav_ind"></a>
+    <a href="#faq">FAQ</a>
+  </div>
+  <div class="nav-right">
+    <button class="btn btn-primary nav-cta" id="cortex-demo-call" data-i="hero_btn"></button>
+    <div class="lang-toggle">
+      <button id="btn-fr" class="active" onclick="setLang('fr')">FR</button>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</div></nav>
+
+<header class="hero"><div class="wrap hero-grid">
+  <div>
+    <h1 data-i="hero_h"></h1>
+    <p class="sub" data-i="hero_sub"></p>
+    <div class="hero-ctas">
+      <button class="btn btn-primary" id="cortex-demo-call-1b" data-i="hero_btn"></button>
+      <span class="hero-phone" id="demo-phone" data-i="hero_phone"></span>
+    </div>
+    <div class="stats">
+      <div class="stat"><b data-i="st1b"></b><span data-i="st1s"></span></div>
+      <div class="stat"><b data-i="st2b"></b><span data-i="st2s"></span></div>
+      <div class="stat"><b data-i="st3b"></b><span data-i="st3s"></span></div>
+    </div>
+  </div>
+  <div class="mock">
+    <div class="mock-head"><div class="dot"></div><b data-i="mock_title"></b><span data-i="mock_time"></span></div>
+    <div class="convo">
+      <div class="bubble caller"><span class="who" data-i="mock_caller"></span><span data-i="mc1"></span></div>
+      <div class="bubble ai"><span class="who">Cortex</span><span data-i="ma1"></span></div>
+      <div class="bubble caller"><span class="who" data-i="mock_caller"></span><span data-i="mc2"></span></div>
+      <div class="bubble ai"><span class="who">Cortex</span><span data-i="ma2"></span></div>
+    </div>
+  </div>
+</div></header>
+
+<div class="strip"><div class="wrap strip-in">
+  <div class="fade">
+    <h2 data-i="ob_h"></h2>
+    <p data-i="ob_p"></p>
+    <a class="btn btn-ghost" href="mailto:jordan@crxfx.com" data-i="ob_btn"></a>
+  </div>
+  <div class="keepnum fade">
+    <span class="tag" data-i="kn_tag"></span>
+    <b data-i="kn_b"></b>
+    <p data-i="kn_p"></p>
+  </div>
+</div></div>
+
+<section id="how"><div class="wrap">
+  <h2 class="sec fade" data-i="how_h"></h2>
+  <div class="feat-grid">
+    <div class="feat fade">
+      <h3 data-i="f1h"></h3><p data-i="f1p"></p>
+      <div class="mini">
+        <div class="mrow"><span class="k">22 h 41</span><span data-i="f1r1"></span><span class="ok">✓</span></div>
+        <div class="mrow"><span class="k">23 h 05</span><span data-i="f1r2"></span><span class="ok">✓</span></div>
+        <div class="mrow"><span class="k">6 h 12</span><span data-i="f1r3"></span><span class="ok">✓</span></div>
+      </div>
+    </div>
+    <div class="feat fade">
+      <h3 data-i="f2h"></h3><p data-i="f2p"></p>
+      <div class="mini">
+        <div class="mrow"><span class="k" data-i="f2k1"></span><span>Marc Bélanger</span></div>
+        <div class="mrow"><span class="k" data-i="f2k2"></span><span data-i="f2v2"></span></div>
+        <div class="mrow"><span class="k" data-i="f2k3"></span><span data-i="f2v3"></span></div>
+        <div class="mrow"><span class="k" data-i="f2k4"></span><span class="ok" data-i="f2v4"></span></div>
+      </div>
+    </div>
+    <div class="feat fade">
+      <h3 data-i="f3h"></h3><p data-i="f3p"></p>
+      <div class="mini" style="background:transparent;border:none;padding:0">
+        <div class="sms"><span data-i="f3sms"></span><small data-i="f3small"></small></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section class="listen"><div class="wrap">
+  <h2 class="sec fade" data-i="li_h"></h2>
+  <p class="sec-sub fade" data-i="li_p"></p>
+  <div class="listen-cta fade">
+    <button class="btn btn-primary" id="cortex-demo-call-2" data-i="hero_btn"></button>
+    <span class="phone-big" id="demo-phone-2" data-i="hero_phone"></span>
+  </div>
+  <p class="note fade" data-i="li_note"></p>
+</div></section>
+
+<section><div class="wrap">
+  <h2 class="sec fade" data-i="never_h"></h2>
+  <p class="sec-sub fade" data-i="never_intro"></p>
+  <div class="never-grid">
+    <div class="never-card fade" data-i="n1"></div>
+    <div class="never-card fade" data-i="n2"></div>
+    <div class="never-card fade" data-i="n3"></div>
+    <div class="never-card fade" data-i="n4"></div>
+  </div>
+  <p class="never-close fade" data-i="never_close"></p>
+</div></section>
+
+<section id="industries" style="padding-top:0"><div class="wrap">
+  <h2 class="sec fade" data-i="ind_h"></h2>
+  <div class="ind-grid">
+    <div class="ind fade"><div class="ico">🏗️</div><h3 data-i="i1h"></h3><p data-i="i1p"></p></div>
+    <div class="ind fade"><div class="ico">🎥</div><h3 data-i="i2h"></h3><p data-i="i2p"></p></div>
+    <div class="ind fade"><div class="ico">🔧</div><h3 data-i="i3h"></h3><p data-i="i3p"></p></div>
+    <div class="ind fade"><div class="ico">⚡</div><h3 data-i="i4h"></h3><p data-i="i4p"></p></div>
+    <div class="ind fade"><div class="ico">🏋️</div><h3 data-i="i5h"></h3><p data-i="i5p"></p></div>
+    <div class="ind fade"><div class="ico">🎪</div><h3 data-i="i6h"></h3><p data-i="i6p"></p></div>
+  </div>
+</div></section>
+
+<section class="cta"><div class="wrap">
+  <h2 class="sec fade" data-i="cta_h"></h2>
+  <p class="sec-sub fade" data-i="cta_p"></p>
+  <div class="bullets fade">
+    <span data-i="b1"></span><span data-i="b2"></span><span data-i="b3"></span><span data-i="b4"></span>
+  </div>
+  <button class="btn btn-primary fade" id="cortex-demo-call-3" data-i="hero_btn"></button>
+</div></section>
+
+<section id="faq" style="padding-bottom:72px"><div class="wrap">
+  <h2 class="sec fade" data-i="faq_h"></h2>
+  <div class="faq fade">
+    <details><summary data-i="q1"></summary><p data-i="a1"></p></details>
+    <details><summary data-i="q2"></summary><p data-i="a2"></p></details>
+    <details><summary data-i="q3"></summary><p data-i="a3"></p></details>
+    <details><summary data-i="q4"></summary><p data-i="a4"></p></details>
+    <details><summary data-i="q5"></summary><p data-i="a5"></p></details>
+  </div>
+</div></section>
+
+<footer><div class="wrap foot-in">
+  <div>Cortex · Montréal, Québec</div>
+  <div><a href="mailto:jordan@crxfx.com" data-i="foot_mail"></a></div>
+</div></footer>
+
+<script>
+const STR = {
+ fr: {
+  nav_how:"Fonctionnement", nav_ind:"Industries",
+  hero_h:"Votre ligne répond après la fermeture. En français d'ici.",
+  hero_sub:"Cortex prend chaque appel quand le comptoir est fermé : il comprend la demande, prend le dossier complet, pis il ne réveille votre personne de garde que quand ça le mérite.",
+  hero_btn:"Parlez-lui", hero_phone:"Numéro démo — bientôt",
+  st1b:"2 secondes", st1s:"pour décrocher, chaque fois",
+  st2b:"Soirs + fins de semaine", st2s:"répond uniquement quand vous êtes fermés",
+  st3b:"FR / EN", st3s:"bascule dans le même appel",
+  mock_title:"Appel entrant", mock_time:"jeudi, 22 h 41", mock_caller:"Client",
+  mc1:"Notre génératrice a lâché, le chantier repart à six heures demain matin…",
+  ma1:"OK, je note que c'est urgent. Je prends votre nom, votre numéro, pis le modèle — la personne de garde vous rappelle dans les prochaines minutes.",
+  mc2:"Marc Bélanger, cinq un quatre… c'est une sept mille watts.",
+  ma2:"Parfait Marc. Dossier complet, personne de garde avisée. On vous rappelle tout de suite.",
+  ob_h:"Installé en quinze minutes", ob_p:"Un renvoi d'appel à la fermeture. Rien à installer, rien à changer dans vos systèmes. Vous gardez votre ligne, votre fournisseur, vos habitudes.",
+  ob_btn:"Écrire à Cortex",
+  kn_tag:"La question qu'on nous pose le plus", kn_b:"Votre numéro reste le même.",
+  kn_p:"Cortex fonctionne avec n'importe quelle ligne — Bell, Vidéotron, Telus, VoIP. Un renvoi d'appel après la fermeture, c'est tout. Le matin, vous reprenez la ligne comme d'habitude.",
+  how_h:"Ce que ça fait, concrètement",
+  f1h:"Décroche en moins de deux secondes.", f1p:"Chaque appel après la fermeture est pris — jamais de boîte vocale, jamais de sonnerie dans le vide.",
+  f1r1:"Soumission captée", f1r2:"Message pris", f1r3:"Urgence transférée",
+  f2h:"Prend le dossier au complet.", f2p:"L'équipement, les dates, le chantier, les coordonnées — structuré, prêt pour votre comptoir.",
+  f2k1:"Nom", f2k2:"Équipement", f2v2:"Génératrice 7 000 W", f2k3:"Besoin", f2v3:"Demain 6 h", f2k4:"Garde avisée", f2v4:"Oui — 22 h 41",
+  f3h:"Chaque appel, résumé, livré.", f3p:"Le dossier arrive par courriel ou texto avant l'ouverture. Les vraies urgences réveillent votre personne de garde tout de suite.",
+  f3sms:"Cortex : Urgence chantier — génératrice 7 000 W en panne, remplacement requis 6 h. Marc Bélanger, 514 555-0187. Dossier complet au comptoir.",
+  f3small:"Reçu à 22 h 41",
+  li_h:"Ne lisez pas. Essayez-le.", li_p:"Soixante secondes. Demandez-lui un prix. Basculez en anglais au milieu d'une phrase. Essayez de le piéger.",
+  li_note:"Le numéro démo arrive sous peu — en attendant, l'appel se fait directement dans le navigateur.",
+  never_h:"Ce que Cortex ne fera jamais", never_intro:"Votre équipe décide. Cortex, jamais.",
+  n1:"Donner un prix ou une estimation.", n2:"Confirmer qu'une machine est disponible.",
+  n3:"Donner un conseil technique.", n4:"Réveiller votre monde pour quelqu'un qui magasine.",
+  never_close:"« Il prend le dossier, il trie, pis il laisse les décisions à votre équipe. »",
+  ind_h:"Bâti pour la location",
+  i1h:"Équipement de construction", i1p:"Nacelles, télescopiques, compaction — l'urgence de chantier arrive toujours après cinq heures.",
+  i2h:"Cinéma, télé et audiovisuel", i2p:"Les plateaux tournent la nuit pis la fin de semaine. Votre comptoir, non.",
+  i3h:"Outillage et location générale", i3p:"Les questions de règlements — heures, dépôts, assurance — répondues sans interrompre le comptoir.",
+  i4h:"Génératrices et énergie", i4p:"Une panne le samedi soir, c'est le seul moment où le client appelle. Quelqu'un doit répondre.",
+  i5h:"Levage et manutention", i5p:"Les demandes qualifiées passent. Le magasinage attend lundi matin.",
+  i6h:"Événementiel", i6p:"Tentes, scènes, mobilier — les organisateurs appellent le soir, après leurs propres journées.",
+  cta_h:"Arrêtez de manquer des appels cette semaine",
+  cta_p:"Un pilote sur votre vraie ligne, sans risque. Vous jugez avec vos propres chiffres.",
+  b1:"Essayez-le avant de payer", b2:"Pilote gratuit de 14 à 30 jours", b3:"Installation en 15 minutes", b4:"Annulable en tout temps",
+  faq_h:"Questions fréquentes",
+  q1:"Nos clients veulent parler à du monde, pas à un robot.",
+  a1:"Nous aussi. C'est pour ça que Cortex ne répond jamais pendant vos heures d'ouverture. À vingt-deux heures un jeudi, le choix n'est pas robot ou humain — c'est robot ou boîte vocale. Pis la boîte vocale ne prend aucun dossier.",
+  q2:"Est-ce qu'il faut changer de numéro ou de système téléphonique ?",
+  a2:"Non. Un renvoi d'appel à la fermeture, sur n'importe quelle ligne — Bell, Vidéotron, Telus, VoIP. Le matin, tout revient comme avant. Aucun changement à vos systèmes.",
+  q3:"Est-ce qu'il peut donner des prix ou confirmer des disponibilités ?",
+  a3:"Non, et c'est volontaire. Aucun prix, aucune confirmation de stock, aucun conseil technique — ces réponses appartiennent à votre équipe. Cortex prend le dossier complet et le transmet. Chaque appel produit un rapport qui vérifie que la règle a été respectée.",
+  q4:"Combien ça coûte ?",
+  a4:"Le pilote est gratuit. Ensuite, un tarif mensuel fixe unique — pas de facturation à la minute, pas de contrat de durée, annulable en tout temps. Écrivez-nous pour le chiffre exact selon votre volume.",
+  q5:"Et la Loi 25 ?",
+  a5:"Les appels s'ouvrent avec un avis clair, l'assistante s'annonce comme assistante virtuelle — jamais comme un humain — et les données sont traitées de façon conforme. C'est une exigence de conception, pas une option.",
+  foot_mail:"Écrire à Cortex"
+ },
+ en: {
+  nav_how:"How it works", nav_ind:"Industries",
+  hero_h:"Your line answers after closing. In Quebec French.",
+  hero_sub:"Cortex takes every call when the counter is closed: understands the request, captures the full file, and only wakes your on-call person when it's actually worth it.",
+  hero_btn:"Talk to it", hero_phone:"Demo number — coming soon",
+  st1b:"2 seconds", st1s:"to pick up, every time",
+  st2b:"Nights + weekends", st2s:"answers only when you're closed",
+  st3b:"FR / EN", st3s:"switches mid-call",
+  mock_title:"Incoming call", mock_time:"Thursday, 10:41pm", mock_caller:"Customer",
+  mc1:"Our generator died, the site starts back up at six tomorrow morning…",
+  ma1:"Okay, I'm flagging this as urgent. I'll take your name, number, and the model — the on-call person calls you back within minutes.",
+  mc2:"Marc Bélanger, five one four… it's a seven thousand watt.",
+  ma2:"Perfect, Marc. Full file taken, on-call notified. You'll hear back right away.",
+  ob_h:"Set up in fifteen minutes", ob_p:"One call forward at closing. Nothing to install, nothing to change in your systems. Keep your line, your carrier, your habits.",
+  ob_btn:"Email Cortex",
+  kn_tag:"Our most asked question", kn_b:"Your number stays the same.",
+  kn_p:"Cortex works with any line — Bell, Vidéotron, Telus, VoIP. One call forward after closing, that's it. In the morning, your line is yours again.",
+  how_h:"What it does, concretely",
+  f1h:"Picks up in under two seconds.", f1p:"Every after-hours call gets answered — no voicemail, no ringing into nothing.",
+  f1r1:"Quote request captured", f1r2:"Message taken", f1r3:"Emergency escalated",
+  f2h:"Takes the complete file.", f2p:"Equipment, dates, job site, contact info — structured, ready for your counter.",
+  f2k1:"Name", f2k2:"Equipment", f2v2:"7,000 W generator", f2k3:"Need", f2v3:"Tomorrow 6am", f2k4:"On-call notified", f2v4:"Yes — 10:41pm",
+  f3h:"Every call, summarized, delivered.", f3p:"The file lands by email or text before opening. Real emergencies wake your on-call person immediately.",
+  f3sms:"Cortex: Site emergency — 7,000 W generator down, replacement needed by 6am. Marc Bélanger, 514 555-0187. Full file at the counter.",
+  f3small:"Received 10:41pm",
+  li_h:"Don't read. Try it.", li_p:"Sixty seconds. Ask it for a price. Switch to English mid-sentence. Try to trip it up.",
+  li_note:"Demo number coming shortly — meanwhile the call runs right in your browser.",
+  never_h:"What Cortex will never do", never_intro:"Your team decides. Cortex never does.",
+  n1:"Quote a price or an estimate.", n2:"Confirm a machine is available.",
+  n3:"Give technical advice.", n4:"Wake your people for a window shopper.",
+  never_close:"“It takes the file, triages, and leaves the decisions to your team.”",
+  ind_h:"Built for rental",
+  i1h:"Construction equipment", i1p:"Lifts, telehandlers, compaction — site emergencies always land after 5pm.",
+  i2h:"Film, TV and AV", i2p:"Sets run nights and weekends. Your counter doesn't.",
+  i3h:"Tools and general rental", i3p:"Policy questions — hours, deposits, insurance — answered without interrupting the counter.",
+  i4h:"Generators and power", i4p:"A Saturday-night outage is the only moment that customer calls. Someone has to answer.",
+  i5h:"Lifting and handling", i5p:"Qualified requests get through. Window shopping waits until Monday.",
+  i6h:"Events", i6p:"Tents, stages, furniture — organizers call at night, after their own workday.",
+  cta_h:"Stop missing calls this week",
+  cta_p:"A pilot on your real line, risk-free. You judge with your own numbers.",
+  b1:"Hear it before you pay", b2:"Free 14–30 day pilot", b3:"15-minute setup", b4:"Cancel anytime",
+  faq_h:"Frequently asked questions",
+  q1:"Our customers want to talk to people, not a robot.",
+  a1:"So do we. That's why Cortex never answers during your open hours. At 10pm on a Thursday, the choice isn't robot vs. human — it's robot vs. voicemail. And voicemail takes zero files.",
+  q2:"Do we have to change our number or phone system?",
+  a2:"No. One call forward at closing, on any line — Bell, Vidéotron, Telus, VoIP. In the morning everything is back to normal. No changes to your systems.",
+  q3:"Can it give prices or confirm availability?",
+  a3:"No — by design. No prices, no stock confirmations, no technical advice. Those answers belong to your team. Cortex takes the complete file and hands it over. Every call produces a report verifying the rule was respected.",
+  q4:"How much does it cost?",
+  a4:"The pilot is free. After that, one flat monthly rate — no per-minute billing, no term contract, cancel anytime. Write to us for the exact number based on your volume.",
+  q5:"What about Quebec's Law 25?",
+  a5:"Calls open with a clear notice, the assistant identifies itself as a virtual assistant — never as a human — and data is handled compliantly. It's a design requirement, not an option.",
+  foot_mail:"Email Cortex"
+ }
+};
+function setLang(l){
+  document.documentElement.lang=l;
+  localStorage.setItem("cortex-lang",l);
+  document.getElementById("btn-fr").classList.toggle("active",l==="fr");
+  document.getElementById("btn-en").classList.toggle("active",l==="en");
+  document.querySelectorAll("[data-i]").forEach(el=>{const s=STR[l][el.dataset.i];if(s!==undefined)el.innerHTML=s;});
+  document.title=l==="fr"?"Cortex — Votre ligne répond après la fermeture":"Cortex — Your line answers after closing";
+}
+setLang(localStorage.getItem("cortex-lang")||"fr");
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll(".fade").forEach(el=>io.observe(el));
+
+// ---- Vapi voice widget ----
+// PUBLIC key only (Vapi dashboard → Settings → API Keys → Public). Never the private key.
+const VAPI_PUBLIC_KEY="REPLACE_WITH_VAPI_PUBLIC_KEY";
+const VAPI_ASSISTANT_ID="9272b4bb-4b54-41de-a0df-0e3d5da0e7e2";
+const CALL_BTNS=["cortex-demo-call","cortex-demo-call-1b","cortex-demo-call-2","cortex-demo-call-3"];
+var vapiInstance=null;
+(function(d,t){
+  if(VAPI_PUBLIC_KEY.startsWith("REPLACE")){
+    CALL_BTNS.forEach(id=>{const b=d.getElementById(id);
+      if(b)b.onclick=()=>{b.textContent=document.documentElement.lang==="fr"?"Démo bientôt disponible":"Demo coming soon";};});
+    return;
+  }
+  var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src="https://cdn.jsdelivr.net/gh/VapiAI/html-script-tag@latest/dist/assets/index.js";
+  g.defer=true;g.async=true;s.parentNode.insertBefore(g,s);
+  g.onload=function(){
+    vapiInstance=window.vapiSDK.run({apiKey:VAPI_PUBLIC_KEY,assistant:VAPI_ASSISTANT_ID,config:{}});
+    CALL_BTNS.forEach(function(id){var b=d.getElementById(id);if(b)b.onclick=function(){vapiInstance.start();};});
+  };
+})(document,"script");
+</script>
+</body>
+</html>
