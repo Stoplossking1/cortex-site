@@ -1,31 +1,23 @@
-# Go-live — cortexsolution.ca
-*DFY path, ~10 minutes, no CLI.*
+# Deploying cortexsolution.ca
 
-## Before deploying (2 required edits in index.html)
+The public site is deployed from the `main` branch of `Stoplossking1/cortex-site` through GitHub Pages. The custom domain is defined in `CNAME` as `cortexsolution.ca`.
 
-1. Replace `REPLACE_WITH_VAPI_PUBLIC_KEY` with the **public** key (Vapi dashboard → Settings → API Keys → Public). Never the private key — anyone can read frontend code.
-2. In Vapi → Billing, **set a spend limit** — a public call button on a public URL is billable by strangers.
-3. (When the 514 number exists: swap the "Numéro démo — bientôt" strings in the `STR` object for the real number.)
+## Publish
 
-## Deploy (Netlify Drop — free, includes TLS)
-
-1. Go to https://app.netlify.com/drop (create free account if needed).
-2. Drag the `site/` folder onto the page → site is live at `something.netlify.app` in seconds.
-3. Site settings → Domain management → Add custom domain → `cortexsolution.ca` (+ `www.cortexsolution.ca`).
-
-## DNS (at the registrar where the domain was bought)
-
-Add these records:
-
-| Type | Name | Value |
-|---|---|---|
-| A | @ | 75.2.60.5 |
-| CNAME | www | `<your-site>.netlify.app` |
-
-Propagation: minutes to a few hours. Netlify auto-issues the HTTPS certificate once DNS resolves. Alternative: transfer nameservers to Netlify DNS (their UI offers it) — even simpler long-term.
+1. Validate `index.html` locally, including desktop/mobile layout, dialogs, demo scenarios, and the pilot email action.
+2. Commit only the intended site files.
+3. Push `main` to `origin`.
+4. Wait for GitHub Pages to publish the new commit.
 
 ## Verify
 
-- https://cortexsolution.ca loads with the padlock, FR by default, EN toggle works.
-- The call button starts a browser call to the assistant (after the public key is in).
-- Check on a phone — the whole page must be readable one-handed.
+- `https://cortexsolution.ca` loads over HTTPS.
+- The page title describes equipment rental services, not one rental segment.
+- Construction/tools, party/event, AV/film/camera, landscaping/agriculture, and specialty rental are represented.
+- Demo tabs open and switch among the construction, party/event, and AV/film scenarios.
+- The mobile menu and all dialogs open, close, and return focus correctly.
+- Pilot and contact actions address `jordan@apmode.com`.
+
+## Product guardrail
+
+The public demo is a transparent simulation. Do not embed a customer-specific Vapi assistant or publish a billable public call button until the category-level assistant, phone controls, spend cap, and failure behavior are tested.
