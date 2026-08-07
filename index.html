@@ -22,8 +22,8 @@
 <label data-i18n="lcompany"></label><input name="company" required autocomplete="organization">
 <label data-i18n="lemail"></label><input name="email" type="email" required autocomplete="email">
 <label data-i18n="lphone"></label><input name="phone" autocomplete="tel">
-<label data-i18n="lsegment"></label><select name="segment"></select>
-<label data-i18n="lpain"></label><select name="pain"></select>
+<label data-i18n="lsegment"></label><select name="segment"></select><input name="segment_detail" style="display:none;margin-top:6px" data-ph="oseg">
+<label data-i18n="lpain"></label><select name="pain"></select><input name="pain_detail" style="display:none;margin-top:6px" data-ph="opain">
 <div class="cx-err" data-i18n="err"></div>
 <div class="cx-actions"><button type="submit" data-i18n="send"></button><button type="button" class="cx-close" data-i18n="close"></button></div>
 </form>
@@ -31,12 +31,12 @@
 </div></dialog>
 <script>
 (function(){
-var STR={en:{title:"Plan a pilot",sub:"Six fields. We reply the same day.",lname:"Your name",lcompany:"Company",lemail:"Email",lphone:"Phone (optional)",lsegment:"What do you rent?",lpain:"What eats the most time today?",send:"Send",close:"Close",err:"Could not send. Please email jordan@apmode.co directly.",okt:"Received.",okb:"We will get back to you today with two time slots.",seg:["Construction & tools","Film, AV & camera","Party & event","Other"],pain:["Typing quote requests","Account openings","Missed or overflow calls","Other"]},
-fr:{title:"Planifier un projet pilote",sub:"Six champs. On vous répond le jour même.",lname:"Votre nom",lcompany:"Entreprise",lemail:"Courriel",lphone:"Téléphone (optionnel)",lsegment:"Vous louez quoi ?",lpain:"Qu'est-ce qui mange le plus de temps ?",send:"Envoyer",close:"Fermer",err:"Envoi impossible. Écrivez-nous à jordan@apmode.co.",okt:"Bien reçu.",okb:"On revient vers vous aujourd'hui avec deux plages horaires.",seg:["Construction et outils","Cinéma, AV et caméra","Événementiel","Autre"],pain:["Saisie des soumissions","Ouvertures de comptes","Appels manqués ou débordement","Autre"]}};
+var STR={en:{title:"Plan a pilot",sub:"Six fields. We reply the same day.",lname:"Your name",lcompany:"Company",lemail:"Email",lphone:"Phone (optional)",lsegment:"What do you rent?",lpain:"What eats the most time today?",send:"Send",close:"Close",err:"Could not send. Please email jordan@apmode.co directly.",okt:"Received.",okb:"We will get back to you today with two time slots.",seg:["Construction & tools","Film, AV & camera","Party & event","Other"],pain:["Typing quote requests","Account openings","Missed or overflow calls","Other"],oseg:"Tell us what you rent",opain:"Tell us what eats the time"},
+fr:{title:"Planifier un projet pilote",sub:"Six champs. On vous répond le jour même.",lname:"Votre nom",lcompany:"Entreprise",lemail:"Courriel",lphone:"Téléphone (optionnel)",lsegment:"Vous louez quoi ?",lpain:"Qu'est-ce qui mange le plus de temps ?",send:"Envoyer",close:"Fermer",err:"Envoi impossible. Écrivez-nous à jordan@apmode.co.",okt:"Bien reçu.",okb:"On revient vers vous aujourd'hui avec deux plages horaires.",seg:["Construction et outils","Cinéma, AV et caméra","Événementiel","Autre"],pain:["Saisie des soumissions","Ouvertures de comptes","Appels manqués ou débordement","Autre"],oseg:"Dites-nous ce que vous louez",opain:"Dites-nous ce qui mange le temps"}};
 var dlg=document.getElementById("cx-pilot-dialog"),form=document.getElementById("cx-pilot-form"),okBox=dlg.querySelector(".cx-ok");
 function lang(){try{return localStorage.getItem("cortex-language")==="fr"?"fr":"en"}catch(e){return "en"}}
 function fill(){var L=STR[lang()];dlg.querySelectorAll("[data-i18n]").forEach(function(el){el.textContent=L[el.getAttribute("data-i18n")]});
- [["segment","seg"],["pain","pain"]].forEach(function(p){var sel=form.elements[p[0]];sel.innerHTML="";L[p[1]].forEach(function(o){var op=document.createElement("option");op.textContent=o;op.value=o;sel.appendChild(op)})});}
+ [["segment","seg","segment_detail","oseg"],["pain","pain","pain_detail","opain"]].forEach(function(p){var sel=form.elements[p[0]],det=form.elements[p[2]];sel.innerHTML="";L[p[1]].forEach(function(o){var op=document.createElement("option");op.textContent=o;op.value=o;sel.appendChild(op)});det.placeholder=L[p[3]];det.style.display="none";det.value="";sel.onchange=function(){var last=sel.value===L[p[1]][L[p[1]].length-1];det.style.display=last?"block":"none";if(!last)det.value="";else det.focus()}});}
 document.addEventListener("click",function(ev){var a=ev.target.closest&&ev.target.closest('a[href^="mailto:jordan@apmode.co"]');if(!a)return;ev.preventDefault();fill();form.style.display="";okBox.style.display="none";dlg.querySelector(".cx-err").style.display="none";dlg.showModal();},true);
 dlg.addEventListener("click",function(ev){if(ev.target===dlg)dlg.close()});
 dlg.querySelectorAll(".cx-close").forEach(function(b){b.addEventListener("click",function(){dlg.close()})});
@@ -44,7 +44,7 @@ form.addEventListener("submit",function(ev){ev.preventDefault();
  if(!form.reportValidity())return;
  var btn=form.querySelector("[type=submit]");btn.disabled=true;
  var d=new FormData(form),L=lang();
- fetch("https://formsubmit.co/ajax/jordan@apmode.co",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({_subject:"Lead Cortex — "+d.get("company"),_template:"table",Nom:d.get("name"),Entreprise:d.get("company"),Courriel:d.get("email"),Téléphone:d.get("phone")||"—",Segment:d.get("segment"),Irritant:d.get("pain"),Langue:L,Page:location.href})})
+ fetch("https://formsubmit.co/ajax/jordan@apmode.co",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({_subject:"Lead Cortex — "+d.get("company"),_template:"table",Nom:d.get("name"),Entreprise:d.get("company"),Courriel:d.get("email"),Téléphone:d.get("phone")||"—",Segment:d.get("segment")+(d.get("segment_detail")?" — "+d.get("segment_detail"):""),Irritant:d.get("pain")+(d.get("pain_detail")?" — "+d.get("pain_detail"):""),Langue:L,Page:location.href})})
  .then(function(r){return r.json()}).then(function(r){btn.disabled=false;
   if(r&&(r.success==="true"||r.success===true)){form.style.display="none";okBox.style.display="block";}
   else{dlg.querySelector(".cx-err").style.display="block";}})
