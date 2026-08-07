@@ -16,7 +16,7 @@ The public site is deployed from the `main` branch of `Stoplossking1/cortex-site
 - Construction/tools, party/event, AV/film/camera, landscaping/agriculture, and specialty rental are represented.
 - Demo tabs open and switch among the construction, party/event, and AV/film scenarios.
 - The mobile menu and all dialogs open, close, and return focus correctly.
-- Pilot and contact actions address `jordan@apmode.com`.
+- Pilot and contact actions address `jordan@apmode.co`.
 
 ## Product guardrail
 

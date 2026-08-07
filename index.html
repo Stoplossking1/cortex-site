@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cortex — AI receptionist for equipment rental services</title>
-<meta name="description" content="Cortex answers calls for equipment rental companies, captures the complete request, and moves the next approved action forward — 24/7, after hours, or whenever your team needs coverage.">
+<title>Cortex — The back office for equipment rental companies</title>
+<meta name="description" content="Cortex turns the quote requests and account openings that arrive by email and phone into filled-in records in your rental system. Your team confirms instead of typing.">
 <meta name="theme-color" content="#1f1f20">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -159,7 +159,24 @@ p{margin:0}
 .config-band{background:var(--dark);color:#fff;padding:0 0 105px;text-align:center}.config-band h2{color:var(--yellow)}.config-band .lede{color:#b2b2b7;margin:17px auto 0}.config-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:40px}.config-card{border:1px solid #3d3d40;border-radius:15px;background:#252527;padding:25px;text-align:left}.config-card .emoji{font-size:1.55rem}.config-card h3{font-size:1.2rem;margin:18px 0 8px}.config-card p{font-size:.84rem;color:#aaaab0}
 
 /* Connection band */
-.connections{background:#eef4ff;padding:78px 0}.connections-in{display:grid;grid-template-columns:.85fr 1.15fr;gap:55px;align-items:center}.connections h2{font-size:clamp(2.2rem,4vw,3.6rem)}.connections p{color:var(--muted);margin-top:16px}.connector-cloud{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.connector{background:#fff;border:1px solid #dce3ed;border-radius:13px;padding:16px;display:flex;align-items:center;gap:10px;font-weight:800;font-size:.84rem}.connector span{width:34px;height:34px;border-radius:9px;background:#f3f5f8;display:grid;place-items:center;font-size:1.1rem}.connector small{display:block;color:#9097a4;font-size:.57rem;text-transform:uppercase;letter-spacing:.08em}
+.connections{background:#eef4ff;padding:78px 0}.connections-in{display:grid;grid-template-columns:.85fr 1.15fr;gap:55px;align-items:center}
+.erp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:38px}
+.erp{background:#fff;border:1px solid #dce3ed;border-radius:13px;padding:16px 14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:96px}
+/* optical sizing: squarish marks get height, wide lockups get width */
+.erp img{max-height:32px;max-width:152px;width:auto;object-fit:contain;filter:grayscale(1);opacity:.72;transition:filter .2s,opacity .2s}
+.erp-tall img{max-height:50px;max-width:124px}
+.erp-wide img{max-height:24px;max-width:186px}
+.erp:hover img{filter:none;opacity:1}
+.erp-fallback{font-size:.95rem;font-weight:800;letter-spacing:-.01em;color:#12161d;text-align:center;line-height:1.2}
+.erp small{display:block;color:#9097a4;font-size:.6rem;text-transform:uppercase;letter-spacing:.08em}
+.erp-lead{border-color:#12161d;box-shadow:0 0 0 1px #12161d}
+.erp-lead img{filter:none;opacity:1}
+.erp-other{background:#fbfcfe;border-style:dashed;border-color:#c3cddc;gap:2px}
+.erp-other .erp-plus{font-size:1.15rem;font-weight:500;color:#aab4c4;line-height:1;margin-bottom:2px}
+.erp-other .erp-fallback{color:#5c6472}
+.erp-note{color:var(--muted);font-size:.82rem;margin-top:22px;max-width:760px;line-height:1.65}
+@media(max-width:900px){.erp-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:620px){.erp-grid{grid-template-columns:repeat(2,1fr);gap:9px}.erp{min-height:72px;padding:14px 13px}.erp strong{font-size:.9rem}}.connections h2{font-size:clamp(2.2rem,4vw,3.6rem)}.connections p{color:var(--muted);margin-top:16px}.connector-cloud{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.connector{background:#fff;border:1px solid #dce3ed;border-radius:13px;padding:16px;display:flex;align-items:center;gap:10px;font-weight:800;font-size:.84rem}.connector span{width:34px;height:34px;border-radius:9px;background:#f3f5f8;display:grid;place-items:center;font-size:1.1rem}.connector small{display:block;color:#9097a4;font-size:.57rem;text-transform:uppercase;letter-spacing:.08em}
 
 /* CTA */
 .cta-band{background:var(--dark);color:#fff;text-align:center;padding:86px 0}.cta-band .section-label{color:#aaaab0}.cta-band h2{font-size:clamp(2.4rem,5vw,4.7rem);max-width:780px;margin:0 auto}.cta-band>div>p{color:#aaaab0;margin:18px 0 29px}.cta-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}.guarantees{list-style:none;padding:0;margin:27px 0 0;display:flex;justify-content:center;gap:25px;flex-wrap:wrap;color:#9fa0a6;font-size:.78rem}.guarantees li::before{content:"✓ ";color:var(--yellow);font-weight:900}
@@ -247,13 +264,13 @@ dialog::backdrop{background:rgba(12,13,15,.72);backdrop-filter:blur(6px)}
   <main>
     <section class="hero" id="hero">
       <div class="wrap">
-        <h1>The AI receptionist that keeps rentals moving.</h1>
-        <p class="hero-copy">Cortex answers the calls your rental team assigns, captures the equipment or package, dates, use, location, fulfillment, account, and urgency, then moves the next approved action forward.</p>
+        <h1>The back office for equipment rental companies.</h1>
+        <p class="hero-copy">Quote requests and account openings arrive by email and by phone. Cortex reads them, fills them into your rental system, and your team confirms. What takes 15 to 45 minutes of typing happens on its own.</p>
         <div class="hero-actions">
           <button class="btn btn-primary" data-open-demo>See the rental demo</button>
           <button class="btn btn-dark" data-open-pilot><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 2v3M16 2v3M3.5 9h17M5 4h14a2 2 0 0 1 2 2v14H3V6a2 2 0 0 1 2-2Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Plan a pilot</button>
         </div>
-        <p class="microcopy">Every call, business hours, after hours, overflow, or only when your counter needs backup.</p>
+        <p class="microcopy">Quote requests, account openings, and the calls your counter can't get to.</p>
         <div class="truth-strip" aria-label="Cortex operating principles">
           <div class="truth-item"><strong>24/7/365</strong> coverage options</div>
           <div class="truth-item"><strong>Rental-native</strong> intake</div>
@@ -315,7 +332,23 @@ dialog::backdrop{background:rgba(12,13,15,.72);backdrop-filter:blur(6px)}
 
 <section class="config-band"><div class="wrap"><h2 class="fade">Your operation. Your rules.</h2><p class="lede fade">The voice is the surface. Your segment-specific configuration is the product.</p><div class="config-grid"><article class="config-card fade"><span class="emoji">🕘</span><h3>Coverage you control</h3><p>Every call, open hours, after hours, overflow, no-answer, or a temporary backup window.</p></article><article class="config-card fade"><span class="emoji">🧠</span><h3>Your rental vocabulary</h3><p>Machines, tools, event packages, AV kits, specialty inventory, and the terms your customers actually use.</p></article><article class="config-card fade"><span class="emoji">🛡️</span><h3>Your guardrails</h3><p>Rates, inventory, deposits, insurance, fulfillment commitments, safety, and emergencies follow approved rules.</p></article></div></div></section>
 
-<section class="connections"><div class="wrap connections-in"><div class="fade"><p class="section-label">Connection layer</p><h2>Fits the operation you already run.</h2><p>Cortex connects only the channels and systems approved for a pilot. Named rental-system integrations are scoped—not presented as live before they are built and tested.</p></div><div class="connector-cloud fade"><div class="connector"><span>✉️</span><div>Email<small>Structured request</small></div></div><div class="connector"><span>💬</span><div>SMS<small>Approved alert</small></div></div><div class="connector"><span>🔗</span><div>Webhook<small>Managed workflow</small></div></div><div class="connector"><span>📅</span><div>Calendar<small>When configured</small></div></div><div class="connector"><span>💳</span><div>Payment link<small>Secure handoff</small></div></div><div class="connector"><span>⚙️</span><div>Rental system<small>Scoped per pilot</small></div></div></div></div></section>
+<section class="connections" id="connections"><div class="wrap"><div class="fade" style="max-width:760px"><p class="section-label">Integrations</p><h2>We integrate with these.</h2><p>You don't switch software. Cortex writes quotes and account openings straight into the rental system your team already runs.</p></div>
+<div class="erp-grid fade">
+  <div class="erp erp-lead erp-tall"><img src="assets/erp/sirius.png" alt="Sirius by Orion Software" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'erp-fallback',textContent:'Sirius'}))"></div>
+  <div class="erp"><img src="assets/erp/point-of-rental.webp" alt="Point of Rental" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'erp-fallback',textContent:'Point of Rental'}))"></div>
+  <div class="erp"><img src="assets/erp/texada.webp" alt="Texada" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'erp-fallback',textContent:'Texada'}))"></div>
+  <div class="erp"><img src="assets/erp/wynne.png" alt="Wynne Systems" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'erp-fallback',textContent:'Wynne Systems'}))"></div>
+  <div class="erp erp-wide"><img src="assets/erp/insphire.png" alt="inspHire" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'erp-fallback',textContent:'inspHire'}))"></div>
+  <div class="erp"><img src="assets/erp/mcs.svg" alt="MCS Rental Software" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'erp-fallback',textContent:'MCS Rental'}))"></div>
+  <div class="erp erp-tall"><img src="assets/erp/alert.png" alt="Alert Rental" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'erp-fallback',textContent:'Alert Rental'}))"></div>
+  <div class="erp"><img src="assets/erp/intempo.svg" alt="InTempo" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'erp-fallback',textContent:'InTempo'}))"></div>
+  <div class="erp"><img src="assets/erp/rentman.svg" alt="Rentman" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'erp-fallback',textContent:'Rentman'}))"></div>
+  <div class="erp erp-wide"><img src="assets/erp/current-rms.png" alt="Current RMS" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'erp-fallback',textContent:'Current RMS'}))"></div>
+  <div class="erp erp-tall"><img src="assets/erp/flex.png" alt="Flex Rental Solutions" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'erp-fallback',textContent:'Flex Rental'}))"></div>
+  <div class="erp erp-other"><span class="erp-plus">+</span><span class="erp-fallback">Yours</span><small>Custom or legacy</small></div>
+</div>
+<p class="erp-note fade">Running something custom, or a system from the nineties? That's the normal case in this industry, and we handle it.</p>
+</div></section>
 
 <section class="cta-band" id="pilot"><div class="wrap"><p class="section-label fade">Start with one workflow</p><h2 class="fade">Put Cortex on your rental line.</h2><p class="fade">A controlled 14-day pilot with your calls, policies, and success metric.</p><div class="cta-actions fade"><button class="btn btn-primary" data-open-pilot>Plan a pilot</button><button class="btn btn-ghost" data-open-demo>See the demo</button></div><ul class="guarantees fade"><li>Hear it before coverage starts</li><li>Keep your existing number</li><li>Expand only after review</li><li>Cancel the pilot anytime</li></ul></div></section>
 
@@ -340,7 +373,7 @@ dialog::backdrop{background:rgba(12,13,15,.72);backdrop-filter:blur(6px)}
 
 <section class="section final-cta"><div class="wrap final-grid"><div class="final-copy fade"><p class="section-label">Controlled onboarding</p><h2>Get one rental workflow live.</h2><p>Bring the line, policies, escalation path, and the calls you want covered. We’ll configure the pilot and test it against the real call scenarios your team handles.</p><div class="cta-actions" style="justify-content:flex-start"><button class="btn btn-primary" data-open-pilot>Plan a pilot</button><button class="btn btn-light" data-open-demo>See the demo</button></div></div><div class="bubble-art fade" aria-hidden="true"><span class="art-dot">☎️</span><span class="art-dot">🏗️</span><span class="art-dot">⚡</span><span class="art-dot">🚚</span></div></div></section>
 
-<footer><div class="wrap"><div class="footer-top"><div class="footer-brand"><a class="brand" href="#top"><svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="12" fill="#ffc72c"/><path d="M29.8 12.2A12 12 0 1 0 30 27.6l-5.2-4.1a5.8 5.8 0 1 1-.1-7.1l5.1-4.2Z" fill="#181818"/><rect x="24" y="17" width="10" height="6" rx="2" fill="#181818"/></svg><span class="brand-word" style="color:#fff">Cor<em>tex</em></span></a><p>The AI receptionist and operating layer built for equipment rental services.</p></div><div class="footer-col"><h4>Product</h4><a href="#product">Voice receptionist</a><a href="#workflows">Rental workflows</a><a href="#setup">Setup</a></div><div class="footer-col"><h4>Pilot</h4><a href="#pilot">Plan a pilot</a><a href="#questions">Pilot questions</a><a href="mailto:jordan@apmode.com">Contact</a></div><div class="footer-col"><h4>Coverage</h4><a href="#setup">Business hours</a><a href="#setup">After hours</a><a href="#setup">Overflow & no-answer</a></div></div><div class="footer-bottom"><span>© 2026 Cortex. Equipment rental services.</span><span>jordan@apmode.com</span></div></div></footer>
+<footer><div class="wrap"><div class="footer-top"><div class="footer-brand"><a class="brand" href="#top"><svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="12" fill="#ffc72c"/><path d="M29.8 12.2A12 12 0 1 0 30 27.6l-5.2-4.1a5.8 5.8 0 1 1-.1-7.1l5.1-4.2Z" fill="#181818"/><rect x="24" y="17" width="10" height="6" rx="2" fill="#181818"/></svg><span class="brand-word" style="color:#fff">Cor<em>tex</em></span></a><p>The AI receptionist and operating layer built for equipment rental services.</p></div><div class="footer-col"><h4>Product</h4><a href="#product">Voice receptionist</a><a href="#workflows">Rental workflows</a><a href="#setup">Setup</a></div><div class="footer-col"><h4>Pilot</h4><a href="#pilot">Plan a pilot</a><a href="#questions">Pilot questions</a><a href="mailto:jordan@apmode.co">Contact</a></div><div class="footer-col"><h4>Coverage</h4><a href="#setup">Business hours</a><a href="#setup">After hours</a><a href="#setup">Overflow & no-answer</a></div></div><div class="footer-bottom"><span>© 2026 Cortex. Equipment rental services.</span><span>jordan@apmode.co</span></div></div></footer>
 
 <dialog id="mobile-menu-dialog" aria-labelledby="mobile-menu-title"><div class="mobile-drawer"><h2 id="mobile-menu-title" class="sr-only">Navigation</h2><button class="dialog-close" data-close-dialog aria-label="Close navigation">✕</button><nav class="mobile-nav"><a href="#product">Product</a><a href="#workflows">Rental workflows</a><a href="#setup">Setup</a><a href="#pilot">Pilot</a><a href="#questions">Questions</a></nav><div class="mobile-actions"><button class="btn btn-light" data-open-demo>See the rental demo</button><button class="btn btn-primary" data-open-pilot>Plan a pilot</button></div></div></dialog>
 
@@ -408,7 +441,7 @@ dialog::backdrop{background:rgba(12,13,15,.72);backdrop-filter:blur(6px)}
   new IntersectionObserver(function(entries){entries.forEach(function(e){sticky.classList.toggle('visible',!e.isIntersecting)})},{threshold:.1}).observe(hero);
   var observer=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');observer.unobserve(e.target)}})},{threshold:.12});document.querySelectorAll('.fade').forEach(function(el){observer.observe(el)});
 
-  document.getElementById('pilot-form').addEventListener('submit',function(e){e.preventDefault();var f=new FormData(this);var subject='Cortex pilot — '+f.get('company');var body='Name: '+f.get('name')+'\nCompany: '+f.get('company')+'\nEmail: '+f.get('email')+'\nPhone: '+f.get('phone')+'\nWhere Cortex can help: '+f.get('coverage')+'\n\nWhat Cortex should help with first:\n'+(f.get('workflow')||'Not specified');window.location.href='mailto:jordan@apmode.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body)});
+  document.getElementById('pilot-form').addEventListener('submit',function(e){e.preventDefault();var f=new FormData(this);var subject='Cortex pilot — '+f.get('company');var body='Name: '+f.get('name')+'\nCompany: '+f.get('company')+'\nEmail: '+f.get('email')+'\nPhone: '+f.get('phone')+'\nWhere Cortex can help: '+f.get('coverage')+'\n\nWhat Cortex should help with first:\n'+(f.get('workflow')||'Not specified');window.location.href='mailto:jordan@apmode.co?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body)});
 })();
 </script>
 </body>
