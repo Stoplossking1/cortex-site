@@ -1,0 +1,16 @@
+# Cortex
+
+> Cortex is the back office for equipment rental companies. It reads the quote requests and account openings that arrive by email and phone, and enters them directly into the rental company's management software (ERP) — the team confirms instead of typing. Based in Montreal, serving equipment rental companies in construction, film/AV, party & event, and specialty rental.
+
+## What Cortex does
+- Reads incoming emails, PDFs, and web forms containing quote requests and account-opening requests
+- Drafts quotes in the customer's rental software, matched to their catalogue — including large 30-40 item equipment lists
+- Fills account openings with company details, billing info, and documents, pre-checked against business registries and the company's insurance rules
+- Answers and handles assigned phone calls (after hours, overflow, or full coverage) with rental-native intake
+- Integrates directly with rental ERPs: API when available, AI agents operating the software like a trained employee otherwise (including custom and legacy systems)
+
+## Rental software Cortex works with
+Sirius (Orion Software), Point of Rental, Texada, Wynne Systems, inspHire, MCS Rental, Alert Rental, InTempo, Rentman, Current RMS, Flex Rental Solutions, and custom or legacy systems.
+
+## How to engage
+A controlled pilot on one workflow with a measurable success criterion. Contact: jordan@apmode.co. Site available in English and French.
